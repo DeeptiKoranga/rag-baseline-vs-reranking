@@ -1,0 +1,86 @@
+[
+ {
+  "qid": "Q14",
+  "query": "Can I attack with a weapon in each hand on the same turn?",
+  "answer_1_baseline": "Based on the provided context, you can engage in two-weapon fighting. When doing so, you can add your ability modifier to the damage of the second attack, unless that modifier is negative (p. 27, 77). If either weapon has the thrown property, you may throw it instead of making a melee attack (p. 77). \n\nAdditionally, if you are at least 2nd level, you can use Action Surge to take one additional action on your turn, which increases to two uses at 17th level (p. 27). You must finish a short or long rest before using Action Surge again (p. 27).",
+  "answer_2_reranked": "Yes, when you take the Attack action with a light melee weapon in one hand, you can use a bonus action to attack with a different light melee weapon in the other hand (p. 77). If either weapon has the thrown property, you may throw it instead of making a melee attack (p. 77).\n\nRestrictions and penalties include:\n*   Both weapons must be light melee weapons (p. 77).\n*   You do not add your ability modifier to the damage of the bonus attack unless the modifier is negative (p. 77). However, certain class features allow you to add the modifier to the second attack's damage (p. 27).",
+  "baseline_pages": [
+   27,
+   77,
+   27
+  ],
+  "reranked_pages": [
+   77,
+   27,
+   73
+  ],
+  "baseline_chunks": [
+   193,
+   550,
+   197
+  ],
+  "reranked_chunks": [
+   549,
+   193,
+   516
+  ],
+  "baseline_llm_ms": 187672.3,
+  "reranked_llm_ms": 1725.8
+ },
+ {
+  "qid": "Q9",
+  "query": "When am I prohibited from acting at all at the start of a battle?",
+  "answer_1_baseline": "NOT IN CONTEXT.",
+  "answer_2_reranked": "You are prohibited from moving or taking an action on your first turn of combat if you are surprised (p. 72). Additionally, you are restricted from taking any reactions until that first turn ends (p. 72). While a reaction is an instant response to a trigger that can occur on your turn or someone else's, once you use a reaction, you are prohibited from taking another one until the start of your next turn (p. 73).",
+  "baseline_pages": [
+   72,
+   72,
+   162
+  ],
+  "reranked_pages": [
+   72,
+   162,
+   73
+  ],
+  "baseline_chunks": [
+   509,
+   508,
+   1031
+  ],
+  "reranked_chunks": [
+   511,
+   1031,
+   517
+  ],
+  "baseline_llm_ms": 6976.3,
+  "reranked_llm_ms": 7164.3
+ },
+ {
+  "qid": "Q11",
+  "query": "Does scrambling up a wall or wading through a swamp slow me down?",
+  "answer_1_baseline": "Yes. According to the rules for difficult terrain, every foot of movement costs 1 extra foot (p. 73). The context identifies boulder-strewn caverns, briar-choked forests, and treacherous staircases as examples of settings containing difficult terrain (p. 73). Additionally, scaling a treacherous mountain slope or swimming across a rushing river are noted as key types of movement in adventures (p. 66). While the DM may summarize movement between encounters without calculating exact distances, it is sometimes important to determine how long it takes to travel between spots in days, hours, or minutes (p. 66).",
+  "answer_2_reranked": "Yes. Climbing and swimming (such as wading through a swamp) are special types of movement where each foot costs 1 extra foot of speed (p. 67). \n\nIf the terrain is considered difficult terrain\u2014such as deep swamps, steep mountains, or rubble\u2014you move at half speed, meaning 1 foot of movement costs 2 feet of speed (p. 67). When climbing or swimming in difficult terrain, each foot costs 2 extra feet (p. 67). Additionally, the travel speeds for simple terrain assume you can cover only half the normal distance in a minute, hour, or day when in difficult terrain (p. 67). This rule applies even if multiple factors in a space count as difficult terrain (p. 73).",
+  "baseline_pages": [
+   66,
+   73,
+   73
+  ],
+  "reranked_pages": [
+   67,
+   66,
+   73
+  ],
+  "baseline_chunks": [
+   459,
+   520,
+   522
+  ],
+  "reranked_chunks": [
+   468,
+   459,
+   521
+  ],
+  "baseline_llm_ms": 2777.0,
+  "reranked_llm_ms": 1726.1
+ }
+]

@@ -1,0 +1,819 @@
+[
+ {
+  "qid": "Q1",
+  "category": "Keyword trap / distractor",
+  "query": "Does wearing heavy plate make it harder to sneak past guards unnoticed?",
+  "note": "The decisive rule is in the Equipment chapter and never says 'sneak' or 'guards'. The Skills section does: it literally reads 'slink past guards'. So the query's own words point at the wrong chunk.",
+  "gold_chunk_ids": [
+   320
+  ],
+  "gold_pages": [
+   46
+  ],
+  "rank_in_top100": 6,
+  "baseline_rank": 6,
+  "reranked_rank": 7,
+  "in_baseline_context": false,
+  "in_reranked_context": false,
+  "baseline_top3": [
+   {
+    "chunk_id": 335,
+    "page": 47,
+    "score": 0.4809
+   },
+   {
+    "chunk_id": 333,
+    "page": 47,
+    "score": 0.4355
+   },
+   {
+    "chunk_id": 326,
+    "page": 46,
+    "score": 0.431
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 333,
+    "page": 47,
+    "score": -2.476,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 474,
+    "page": 67,
+    "score": -3.5373,
+    "came_from_rank": 10
+   },
+   {
+    "chunk_id": 334,
+    "page": 47,
+    "score": -5.5104,
+    "came_from_rank": 9
+   }
+  ]
+ },
+ {
+  "qid": "Q2",
+  "category": "Keyword trap / distractor",
+  "query": "How much gold per day does a comfortable standard of living cost?",
+  "note": "'Comfortable' and 'wealthy' appear all over the personality-trait and background tables, which have nothing to do with expenses.",
+  "gold_chunk_ids": [
+   381,
+   382
+  ],
+  "gold_pages": [
+   54
+  ],
+  "rank_in_top100": 2,
+  "baseline_rank": 2,
+  "reranked_rank": 1,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 313,
+    "page": 45,
+    "score": 0.5203
+   },
+   {
+    "chunk_id": 382,
+    "page": 54,
+    "score": 0.5045
+   },
+   {
+    "chunk_id": 380,
+    "page": 54,
+    "score": 0.4856
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 382,
+    "page": 54,
+    "score": -4.6266,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 503,
+    "page": 71,
+    "score": -6.7518,
+    "came_from_rank": 5
+   },
+   {
+    "chunk_id": 386,
+    "page": 55,
+    "score": -6.9069,
+    "came_from_rank": 10
+   }
+  ]
+ },
+ {
+  "qid": "Q3",
+  "category": "Keyword trap / distractor",
+  "query": "What do I roll to spot an enemy trying to hide from me?",
+  "note": "'Hide' and 'spot' collide with dozens of rogue and spell entries.",
+  "gold_chunk_ids": [
+   440
+  ],
+  "gold_pages": [
+   63
+  ],
+  "rank_in_top100": 1,
+  "baseline_rank": 1,
+  "reranked_rank": 2,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 440,
+    "page": 63,
+    "score": 0.6062
+   },
+   {
+    "chunk_id": 441,
+    "page": 63,
+    "score": 0.5566
+   },
+   {
+    "chunk_id": 442,
+    "page": 63,
+    "score": 0.5204
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 541,
+    "page": 76,
+    "score": 4.2587,
+    "came_from_rank": 5
+   },
+   {
+    "chunk_id": 440,
+    "page": 63,
+    "score": 4.0721,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 441,
+    "page": 63,
+    "score": 0.1968,
+    "came_from_rank": 2
+   }
+  ]
+ },
+ {
+  "qid": "Q4",
+  "category": "Exception / corner case",
+  "query": "If a fight comes at us in several waves, can we rest in between to heal up?",
+  "note": "The general resting rules say a short rest restores hit points. The restriction that denies it mid-encounter sits ~96 pages away in the DM's encounter-building chapter.",
+  "gold_chunk_ids": [
+   1050
+  ],
+  "gold_pages": [
+   166
+  ],
+  "rank_in_top100": 98,
+  "baseline_rank": null,
+  "reranked_rank": null,
+  "in_baseline_context": false,
+  "in_reranked_context": false,
+  "baseline_top3": [
+   {
+    "chunk_id": 567,
+    "page": 80,
+    "score": 0.3904
+   },
+   {
+    "chunk_id": 564,
+    "page": 79,
+    "score": 0.3291
+   },
+   {
+    "chunk_id": 193,
+    "page": 27,
+    "score": 0.3118
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 193,
+    "page": 27,
+    "score": -6.1765,
+    "came_from_rank": 3
+   },
+   {
+    "chunk_id": 498,
+    "page": 70,
+    "score": -7.1107,
+    "came_from_rank": 10
+   },
+   {
+    "chunk_id": 567,
+    "page": 80,
+    "score": -7.8822,
+    "came_from_rank": 1
+   }
+  ]
+ },
+ {
+  "qid": "Q5",
+  "category": "Exception / corner case",
+  "query": "After a full night of sleep, do I get all of my Hit Dice back?",
+  "note": "The intuitive answer is 'yes, everything resets'. The actual rule grants only half, and that clause is one sentence inside a long passage about resting.",
+  "gold_chunk_ids": [
+   498
+  ],
+  "gold_pages": [
+   70
+  ],
+  "rank_in_top100": 2,
+  "baseline_rank": 2,
+  "reranked_rank": 2,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 497,
+    "page": 70,
+    "score": 0.5154
+   },
+   {
+    "chunk_id": 498,
+    "page": 70,
+    "score": 0.4902
+   },
+   {
+    "chunk_id": 496,
+    "page": 70,
+    "score": 0.4093
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 497,
+    "page": 70,
+    "score": -0.9121,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 498,
+    "page": 70,
+    "score": -1.0329,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 62,
+    "page": 9,
+    "score": -3.1059,
+    "came_from_rank": 5
+   }
+  ]
+ },
+ {
+  "qid": "Q6",
+  "category": "Exception / corner case",
+  "query": "Can I wear a second shield on my other arm for more protection?",
+  "note": "A one-clause restriction buried in a chunk about armor types.",
+  "gold_chunk_ids": [
+   320
+  ],
+  "gold_pages": [
+   46
+  ],
+  "rank_in_top100": 3,
+  "baseline_rank": 3,
+  "reranked_rank": 1,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 198,
+    "page": 27,
+    "score": 0.4617
+   },
+   {
+    "chunk_id": 326,
+    "page": 46,
+    "score": 0.4506
+   },
+   {
+    "chunk_id": 320,
+    "page": 46,
+    "score": 0.3323
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 320,
+    "page": 46,
+    "score": 0.4351,
+    "came_from_rank": 3
+   },
+   {
+    "chunk_id": 198,
+    "page": 27,
+    "score": -3.086,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 322,
+    "page": 46,
+    "score": -3.9622,
+    "came_from_rank": 10
+   }
+  ]
+ },
+ {
+  "qid": "Q7",
+  "category": "Negation / constraint",
+  "query": "What is a creature not allowed to do while another creature holds it in a grapple?",
+  "note": "Bi-encoders blur 'what you can do' and 'what you cannot do' -- both embed near the same region.",
+  "gold_chunk_ids": [
+   551
+  ],
+  "gold_pages": [
+   77
+  ],
+  "rank_in_top100": 2,
+  "baseline_rank": 2,
+  "reranked_rank": 1,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 550,
+    "page": 77,
+    "score": 0.559
+   },
+   {
+    "chunk_id": 551,
+    "page": 77,
+    "score": 0.5582
+   },
+   {
+    "chunk_id": 1083,
+    "page": 171,
+    "score": 0.5077
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 551,
+    "page": 77,
+    "score": 3.0932,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 802,
+    "page": 114,
+    "score": 2.7832,
+    "came_from_rank": 4
+   },
+   {
+    "chunk_id": 1083,
+    "page": 171,
+    "score": 2.7238,
+    "came_from_rank": 3
+   }
+  ]
+ },
+ {
+  "qid": "Q8",
+  "category": "Negation / constraint",
+  "query": "What will make me lose a spell I am trying to keep going?",
+  "note": "Over a hundred spell entries contain the word 'Concentration' in their duration line, swamping the one chunk that states the rule.",
+  "gold_chunk_ids": [
+   589
+  ],
+  "gold_pages": [
+   84
+  ],
+  "rank_in_top100": null,
+  "baseline_rank": null,
+  "reranked_rank": null,
+  "in_baseline_context": false,
+  "in_reranked_context": false,
+  "baseline_top3": [
+   {
+    "chunk_id": 221,
+    "page": 31,
+    "score": 0.4466
+   },
+   {
+    "chunk_id": 651,
+    "page": 92,
+    "score": 0.4398
+   },
+   {
+    "chunk_id": 577,
+    "page": 82,
+    "score": 0.4143
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 584,
+    "page": 83,
+    "score": -0.7679,
+    "came_from_rank": 9
+   },
+   {
+    "chunk_id": 239,
+    "page": 33,
+    "score": -1.748,
+    "came_from_rank": 4
+   },
+   {
+    "chunk_id": 535,
+    "page": 75,
+    "score": -3.0385,
+    "came_from_rank": 5
+   }
+  ]
+ },
+ {
+  "qid": "Q9",
+  "category": "Negation / constraint",
+  "query": "When am I prohibited from acting at all at the start of a battle?",
+  "note": "Negative phrasing against a chapter full of 'you can' statements.",
+  "gold_chunk_ids": [
+   510,
+   511
+  ],
+  "gold_pages": [
+   72
+  ],
+  "rank_in_top100": 5,
+  "baseline_rank": 5,
+  "reranked_rank": 1,
+  "in_baseline_context": false,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 509,
+    "page": 72,
+    "score": 0.4195
+   },
+   {
+    "chunk_id": 508,
+    "page": 72,
+    "score": 0.3669
+   },
+   {
+    "chunk_id": 1031,
+    "page": 162,
+    "score": 0.3652
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 511,
+    "page": 72,
+    "score": -7.0014,
+    "came_from_rank": 5
+   },
+   {
+    "chunk_id": 1031,
+    "page": 162,
+    "score": -8.2026,
+    "came_from_rank": 3
+   },
+   {
+    "chunk_id": 517,
+    "page": 73,
+    "score": -9.5334,
+    "came_from_rank": 9
+   }
+  ]
+ },
+ {
+  "qid": "Q10",
+  "category": "Buried vital chunk",
+  "query": "How long can somebody stay underwater before they start dying?",
+  "note": "Answered in the travel chapter, not anywhere near combat or healing.",
+  "gold_chunk_ids": [
+   479,
+   480
+  ],
+  "gold_pages": [
+   68
+  ],
+  "rank_in_top100": 1,
+  "baseline_rank": 1,
+  "reranked_rank": 1,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 479,
+    "page": 68,
+    "score": 0.4724
+   },
+   {
+    "chunk_id": 669,
+    "page": 95,
+    "score": 0.3888
+   },
+   {
+    "chunk_id": 727,
+    "page": 103,
+    "score": 0.3699
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 479,
+    "page": 68,
+    "score": -1.1846,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 669,
+    "page": 95,
+    "score": -5.709,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 753,
+    "page": 107,
+    "score": -5.932,
+    "came_from_rank": 4
+   }
+  ]
+ },
+ {
+  "qid": "Q11",
+  "category": "Buried vital chunk",
+  "query": "Does scrambling up a wall or wading through a swamp slow me down?",
+  "note": "The movement-cost rule is phrased in feet, not in 'slow down'.",
+  "gold_chunk_ids": [
+   468,
+   469
+  ],
+  "gold_pages": [
+   67
+  ],
+  "rank_in_top100": 6,
+  "baseline_rank": 6,
+  "reranked_rank": 1,
+  "in_baseline_context": false,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 459,
+    "page": 66,
+    "score": 0.3948
+   },
+   {
+    "chunk_id": 520,
+    "page": 73,
+    "score": 0.3837
+   },
+   {
+    "chunk_id": 522,
+    "page": 73,
+    "score": 0.3773
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 468,
+    "page": 67,
+    "score": -8.1715,
+    "came_from_rank": 6
+   },
+   {
+    "chunk_id": 459,
+    "page": 66,
+    "score": -8.27,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 521,
+    "page": 73,
+    "score": -8.8794,
+    "came_from_rank": 5
+   }
+  ]
+ },
+ {
+  "qid": "Q12",
+  "category": "Buried vital chunk",
+  "query": "How far can I jump from a standing start without a run-up?",
+  "note": "Jumping sits in the travel chapter, away from the movement rules.",
+  "gold_chunk_ids": [
+   469,
+   470
+  ],
+  "gold_pages": [
+   67
+  ],
+  "rank_in_top100": 2,
+  "baseline_rank": 2,
+  "reranked_rank": 2,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 471,
+    "page": 67,
+    "score": 0.7138
+   },
+   {
+    "chunk_id": 470,
+    "page": 67,
+    "score": 0.6387
+   },
+   {
+    "chunk_id": 469,
+    "page": 67,
+    "score": 0.5221
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 471,
+    "page": 67,
+    "score": 2.4872,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 470,
+    "page": 67,
+    "score": 2.4437,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 871,
+    "page": 128,
+    "score": 1.762,
+    "came_from_rank": 9
+   }
+  ]
+ },
+ {
+  "qid": "Q13",
+  "category": "Buried vital chunk",
+  "query": "How much damage do you take from a long drop?",
+  "note": "'Damage' retrieves combat and spell text far more strongly.",
+  "gold_chunk_ids": [
+   478,
+   479
+  ],
+  "gold_pages": [
+   68
+  ],
+  "rank_in_top100": 5,
+  "baseline_rank": 5,
+  "reranked_rank": 8,
+  "in_baseline_context": false,
+  "in_reranked_context": false,
+  "baseline_top3": [
+   {
+    "chunk_id": 559,
+    "page": 78,
+    "score": 0.5143
+   },
+   {
+    "chunk_id": 674,
+    "page": 95,
+    "score": 0.4453
+   },
+   {
+    "chunk_id": 655,
+    "page": 93,
+    "score": 0.4452
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 655,
+    "page": 93,
+    "score": -1.606,
+    "came_from_rank": 3
+   },
+   {
+    "chunk_id": 559,
+    "page": 78,
+    "score": -2.4754,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 859,
+    "page": 126,
+    "score": -3.7951,
+    "came_from_rank": 9
+   }
+  ]
+ },
+ {
+  "qid": "Q14",
+  "category": "Keyword trap / distractor",
+  "query": "Can I attack with a weapon in each hand on the same turn?",
+  "note": "The Fighter class has a feature *called* 'Two-Weapon Fighting', which is not the rule -- the rule, with its 'light' restriction, is 50 pages later in the combat chapter.",
+  "gold_chunk_ids": [
+   549
+  ],
+  "gold_pages": [
+   77
+  ],
+  "rank_in_top100": 5,
+  "baseline_rank": 5,
+  "reranked_rank": 1,
+  "in_baseline_context": false,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 193,
+    "page": 27,
+    "score": 0.4027
+   },
+   {
+    "chunk_id": 550,
+    "page": 77,
+    "score": 0.3894
+   },
+   {
+    "chunk_id": 197,
+    "page": 27,
+    "score": 0.3808
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 549,
+    "page": 77,
+    "score": 2.1195,
+    "came_from_rank": 5
+   },
+   {
+    "chunk_id": 193,
+    "page": 27,
+    "score": 1.577,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 516,
+    "page": 73,
+    "score": 1.4452,
+    "came_from_rank": 7
+   }
+  ]
+ },
+ {
+  "qid": "Q15",
+  "category": "Control (baseline expected to succeed)",
+  "query": "How many failed death saving throws does it take to die?",
+  "note": "Included as a control: the query uses the rulebook's exact terminology, so the bi-encoder should already rank it first. If re-ranking were simply 'better', it would improve this too.",
+  "gold_chunk_ids": [
+   560,
+   561
+  ],
+  "gold_pages": [
+   79
+  ],
+  "rank_in_top100": 1,
+  "baseline_rank": 1,
+  "reranked_rank": 1,
+  "in_baseline_context": true,
+  "in_reranked_context": true,
+  "baseline_top3": [
+   {
+    "chunk_id": 561,
+    "page": 79,
+    "score": 0.5875
+   },
+   {
+    "chunk_id": 560,
+    "page": 79,
+    "score": 0.5694
+   },
+   {
+    "chunk_id": 848,
+    "page": 123,
+    "score": 0.4804
+   }
+  ],
+  "reranked_top3": [
+   {
+    "chunk_id": 561,
+    "page": 79,
+    "score": 5.0049,
+    "came_from_rank": 1
+   },
+   {
+    "chunk_id": 560,
+    "page": 79,
+    "score": 4.1174,
+    "came_from_rank": 2
+   },
+   {
+    "chunk_id": 562,
+    "page": 79,
+    "score": 3.9174,
+    "came_from_rank": 5
+   }
+  ]
+ }
+]

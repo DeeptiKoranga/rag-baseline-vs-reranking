@@ -1,0 +1,49 @@
+{
+ "repeats_per_query": 5,
+ "n_queries": 15,
+ "stages": {
+  "embed_query": {
+   "mean_ms": 11.01,
+   "median_ms": 11.18,
+   "p95_ms": 12.21,
+   "min_ms": 6.84,
+   "max_ms": 13.71,
+   "n": 75
+  },
+  "vector_search": {
+   "mean_ms": 0.07,
+   "median_ms": 0.06,
+   "p95_ms": 0.07,
+   "min_ms": 0.05,
+   "max_ms": 0.37,
+   "n": 75
+  },
+  "cross_encode_10_pairs": {
+   "mean_ms": 57.3,
+   "median_ms": 48.34,
+   "p95_ms": 110.96,
+   "min_ms": 37.45,
+   "max_ms": 114.11,
+   "n": 75
+  }
+ },
+ "pipelines": {
+  "baseline_retrieval": {
+   "mean_ms": 11.08,
+   "median_ms": 11.24,
+   "p95_ms": 12.32,
+   "min_ms": 6.9,
+   "max_ms": 13.77,
+   "n": 75
+  },
+  "reranked_retrieval": {
+   "mean_ms": 68.38,
+   "median_ms": 59.99,
+   "p95_ms": 121.62,
+   "min_ms": 44.87,
+   "max_ms": 125.68,
+   "n": 75
+  }
+ },
+ "overhead_x": 6.17
+}

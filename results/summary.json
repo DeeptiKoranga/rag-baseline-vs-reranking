@@ -1,0 +1,38 @@
+{
+ "document": {
+  "source": "https://media.wizards.com/2018/dnd/downloads/DnD_BasicRules_2018.pdf",
+  "pages": 180,
+  "chunks": 1119,
+  "mean_chunk_chars": 774.2,
+  "total_chars": 866320
+ },
+ "models": {
+  "bi_encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "cross_encoder": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "generator": "gemini-3-flash-preview"
+ },
+ "retrieval": {
+  "top_k_retrieve": 10,
+  "top_n_context": 3,
+  "queries": 15,
+  "gold_in_top3_baseline": 8,
+  "gold_in_top3_reranked": 11,
+  "rescued": [
+   "Q14",
+   "Q9",
+   "Q11"
+  ],
+  "unreachable_by_reranking": [
+   "Q4",
+   "Q8"
+  ]
+ },
+ "latency_ms": {
+  "embed_query_mean": 11.46,
+  "vector_search_mean": 0.07,
+  "cross_encode_10_pairs_mean": 59.2,
+  "pipeline1_retrieval_mean": 11.53,
+  "pipeline2_retrieval_mean": 70.73,
+  "overhead_multiple": 6.13
+ }
+}
