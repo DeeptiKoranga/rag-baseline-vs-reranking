@@ -34,7 +34,8 @@ cp .env.example .env     # then paste your Gemini key into .env
 jupyter notebook rag_baseline_vs_reranking.ipynb
 ```
 
-The rulebook PDF (~11 MB) downloads on the first run. Retrieval, re-ranking,
+The rulebook PDF is committed under `data/raw/`; the notebook re-downloads it
+from the publisher if it is missing. Retrieval, re-ranking,
 the rank-shift analysis and the latency profiling **all run without an API
 key** — only the two answer-generation cells need one.
 
@@ -58,7 +59,12 @@ dev/                              the same logic as importable modules, used to
   run_experiment.py                 runs everything headless, writes results/
 results/                          measured numbers the report quotes
 figures/                          latency chart
-report/                           evidence pack for the write-up
+report/
+  report.tex                        typeset report: all tables/figures filled in,
+                                    four analysis sections left to write by hand
+  report.pdf                        compiled output (tectonic report/report.tex)
+  EVIDENCE.md                       the same measurements in markdown
+data/raw/dnd_basic_rules_2018.pdf   the source document
 ```
 
 ## How a retrieval failure is measured rather than asserted
@@ -82,6 +88,8 @@ is expected to succeed on its own.
 
 ## Note on the report
 
-`report/` holds the measured evidence — tables, rank shifts, answer pairs —
-organised under the four required headings. The analysis prose is written by
-hand, per the assignment's authenticity requirement.
+`report/report.tex` is the report with every table, figure and number already
+filled in from `results/`. The four analysis sections are deliberately left
+blank for the author to write, per the assignment's authenticity requirement.
+Rebuild it with `python3 dev/build_report_tex.py`, compile with
+`tectonic report/report.tex`.

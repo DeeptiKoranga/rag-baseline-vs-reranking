@@ -1,0 +1,252 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{xurl}        % allow line breaks inside long URLs
+\usepackage[hidelinks]{hyperref}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Marks the sections the author writes. Delete the environment definition
+% and the \begin/\end pairs once the prose is in.
+\newmdenv[linecolor=gray!55,linewidth=0.5pt,backgroundcolor=gray!6,
+          skipabove=6pt,skipbelow=6pt,leftmargin=0pt,rightmargin=0pt,
+          innertopmargin=6pt,innerbottommargin=6pt]{analysisgap}
+
+\setlength{\emergencystretch}{3em}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+
+\title{\textbf{RAG: Baseline Retrieval vs.\ Cross-Encoder Re-Ranking}}
+\author{Deepti Koranga}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Setup}
+\begin{center}\begin{tabular}{ll}\toprule
+\textbf{Item} & \textbf{Value} \\ \midrule
+Document & D\&D Basic Rules (2018), Wizards of the Coast \\
+Pages / chunks & 180 pages $\rightarrow$ 1119 chunks \\
+Chunking & 774 chars mean, 150 overlap, page-bounded \\
+Bi-encoder & \texttt{sentence-transformers/all-MiniLM-L6-v2} \\
+Cross-encoder & \texttt{cross-encoder/ms-marco-MiniLM-L-6-v2} \\
+Generator & \texttt{gemini-3-flash-preview}, temperature 0 \\
+Retrieve / context & top 10 candidates, top 3 to the LLM \\
+Stress queries & 15 \\
+\bottomrule\end{tabular}\end{center}
+
+Code and the executed notebook:
+\url{https://github.com/DeeptiKoranga/rag-baseline-vs-reranking}
+
+\section{Architecture Comparison}
+
+Measured quantities relevant to this section:
+
+\begin{center}\begin{tabular}{lr}\toprule
+\textbf{Quantity} & \textbf{Measured} \\ \midrule
+Chunk vectors embedded once, reused every query & $1119 \times 384$ \\
+Query embedding (one forward pass) & 11.01 ms \\
+Vector search over the whole corpus & 0.07 ms \\
+Cross-encoder, 10 pairs & 57.30 ms \\
+Cross-encoder, per (query, chunk) pair & 5.7 ms \\
+\bottomrule\end{tabular}\end{center}
+\begin{analysisgap}
+% TO WRITE: Bi-encoder = two independent embeddings compared by cosine; cross-encoder = one joint sequence, full self-attention across query and chunk tokens, single relevance score. Tie it to the numbers above: what is cacheable and what is not.
+\textit{[Your analysis here.]}
+\end{analysisgap}
+
+\section{Qualitative and Rank Shift Analysis}
+
+\subsection{How a failure is measured}
+
+For each query the chunk that actually answers it is pinned in advance by a
+regular expression matching a phrase unique to that chunk. Every claim below
+is therefore a rank, not an impression. \textit{rank$_{100}$} is the
+answer-bearing chunk's position in a top-100 bi-encoder sweep (diagnostic
+only); \textit{base} and \textit{rerank} are its position among the 10
+candidates before and after the cross-encoder. A dash means absent from that
+set. A query is \textbf{rescued} when the answer chunk was outside the top 3
+for the baseline and inside it after re-ranking.
+
+\subsection{Full rank table}
+\begin{center}\footnotesize\begin{tabular}{llrrrrcl}\toprule
+\textbf{ID} & \textbf{Category} & \textbf{p.} & \textbf{rank$_{100}$} & \textbf{base} & \textbf{rerank} & \textbf{shift} & \textbf{Outcome} \\ \midrule
+Q1 & Keyword trap/distractor & 46 & 6 & 6 & 7 & $-1$ & still missed \\
+Q2 & Keyword trap/distractor & 54 & 2 & 2 & 1 & $+1$ & already in top 3 \\
+Q3 & Keyword trap/distractor & 63 & 1 & 1 & 2 & $-1$ & already in top 3 \\
+Q4 & Exception/corner case & 166 & 98 & -- & -- & -- & beyond recall \\
+Q5 & Exception/corner case & 70 & 2 & 2 & 2 & 0 & already in top 3 \\
+Q6 & Exception/corner case & 46 & 3 & 3 & 1 & $+2$ & already in top 3 \\
+Q7 & Negation/constraint & 77 & 2 & 2 & 1 & $+1$ & already in top 3 \\
+Q8 & Negation/constraint & 84 & -- & -- & -- & -- & beyond recall \\
+Q9 & Negation/constraint & 72 & 5 & 5 & 1 & $+4$ & \textbf{rescued} \\
+Q10 & Buried vital chunk & 68 & 1 & 1 & 1 & 0 & already in top 3 \\
+Q11 & Buried vital chunk & 67 & 6 & 6 & 1 & $+5$ & \textbf{rescued} \\
+Q12 & Buried vital chunk & 67 & 2 & 2 & 2 & 0 & already in top 3 \\
+Q13 & Buried vital chunk & 68 & 5 & 5 & 8 & $-3$ & still missed \\
+Q14 & Keyword trap/distractor & 77 & 5 & 5 & 1 & $+4$ & \textbf{rescued} \\
+Q15 & Control & 79 & 1 & 1 & 1 & 0 & already in top 3 \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\begin{tabular}{lr}\toprule
+\textbf{Summary} & \textbf{Count} \\ \midrule
+Queries & 15 \\
+Answer chunk in top 3 -- baseline & 8 \\
+Answer chunk in top 3 -- re-ranked & 11 \\
+Rescued by re-ranking & 3 \\
+Never retrieved (re-ranking cannot help) & 2 \\
+Retrieved but still outside top 3 & 2 \\
+\bottomrule\end{tabular}\end{center}
+\subsection{Rank shifts, with what the baseline ranked instead}
+\subsubsection*{Q9 --- Negation / constraint --- Rank \#5 $\rightarrow$ Rank \#1}
+\textbf{Query:} \textit{When am I prohibited from acting at all at the start of a battle?}
+
+\textbf{Why it is hard:} Negative phrasing against a chapter full of 'you can' statements.
+
+\textbf{Baseline top 3 (cosine)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{cosine} & \textbf{text} \\ \midrule
+1 & -- & 72 & 509 & 0.419 & nonplayer characters involved in combat, and each other pl  \\
+2 & -- & 72 & 508 & 0.367 & The clatter of a sword striking against a shield. The terr  \\
+3 & -- & 162 & 1031 & 0.365 & until the start of its next turn. Actions Greataxe. Melee   \\
+\bottomrule\end{tabularx}\end{center}
+\textbf{Re-ranked top 3 (cross-encoder)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{score} & \textbf{text} \\ \midrule
+1 & \#5 & 72 & 511 & -7.001 & If you're surprised, you can't move or take an action on y \textbf{$\leftarrow$ ANSWER} \\
+2 & \#3 & 162 & 1031 & -8.203 & until the start of its next turn. Actions Greataxe. Melee   \\
+3 & \#9 & 73 & 517 & -9.533 & The DM might require you to use an action for any of these  \\
+\bottomrule\end{tabularx}\end{center}
+
+\subsubsection*{Q11 --- Buried vital chunk --- Rank \#6 $\rightarrow$ Rank \#1}
+\textbf{Query:} \textit{Does scrambling up a wall or wading through a swamp slow me down?}
+
+\textbf{Why it is hard:} The movement-cost rule is phrased in feet, not in 'slow down'.
+
+\textbf{Baseline top 3 (cosine)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{cosine} & \textbf{text} \\ \midrule
+1 & -- & 66 & 459 & 0.395 & Movement Swimming across a rushing river, sneaking down a   \\
+2 & -- & 73 & 520 & 0.384 & If you have more than one speed, such as your walking spee  \\
+3 & -- & 73 & 522 & 0.377 & A. You can drop prone without using any of your speed. Sta  \\
+\bottomrule\end{tabularx}\end{center}
+\textbf{Re-ranked top 3 (cross-encoder)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{score} & \textbf{text} \\ \midrule
+1 & \#6 & 67 & 468 & -8.171 & Difficult Terrain The travel speeds given in the Travel Pa \textbf{$\leftarrow$ ANSWER} \\
+2 & \#1 & 66 & 459 & -8.270 & Movement Swimming across a rushing river, sneaking down a   \\
+3 & \#5 & 73 & 521 & -8.879 & treacherous staircases---the setting of a typical fight cont  \\
+\bottomrule\end{tabularx}\end{center}
+
+\subsubsection*{Q14 --- Keyword trap / distractor --- Rank \#5 $\rightarrow$ Rank \#1}
+\textbf{Query:} \textit{Can I attack with a weapon in each hand on the same turn?}
+
+\textbf{Why it is hard:} The Fighter class has a feature \textit{called} 'Two-Weapon Fighting', which is not the rule -- the rule, with its 'light' restriction, is 50 pages later in the combat chapter.
+
+\textbf{Baseline top 3 (cosine)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{cosine} & \textbf{text} \\ \midrule
+1 & -- & 27 & 193 & 0.403 & Two-Weapon Fighting When you engage in two-weapon fighting  \\
+2 & -- & 77 & 550 & 0.389 & unless that modifier is negative. If either weapon has the  \\
+3 & -- & 27 & 197 & 0.381 & or (b) two handaxes $\bullet$ (a) a dungeoneer's pack or (b) an ex  \\
+\bottomrule\end{tabularx}\end{center}
+\textbf{Re-ranked top 3 (cross-encoder)}
+\begin{center}\footnotesize\begin{tabularx}{\textwidth}{rrrrcY}\toprule
+\textbf{\#} & \textbf{was} & \textbf{p.} & \textbf{chunk} & \textbf{score} & \textbf{text} \\ \midrule
+1 & \#5 & 77 & 549 & 2.119 & modifier---the same modifier used for the attack roll---to the \textbf{$\leftarrow$ ANSWER} \\
+2 & \#1 & 27 & 193 & 1.577 & Two-Weapon Fighting When you engage in two-weapon fighting  \\
+3 & \#7 & 73 & 516 & 1.445 & Other Activity on Your Turn Your turn can include a variet  \\
+\bottomrule\end{tabularx}\end{center}
+
+\subsection{Cases where re-ranking did not help}
+\begin{itemize}[leftmargin=1.2em,itemsep=3pt]
+\item \textbf{Q4} (Exception / corner case) --- \textit{beyond recall.} The answer chunk on p.~166 sits at rank 98 of a top-100 sweep, so it never enters the 10 candidates and no re-ranker can reach it. Query: \textit{If a fight comes at us in several waves, can we rest in between to heal up?}
+\item \textbf{Q8} (Negation / constraint) --- \textit{beyond recall.} The answer chunk on p.~84 does not appear in a top-100 sweep at all, so it never enters the 10 candidates and no re-ranker can reach it. Query: \textit{What will make me lose a spell I am trying to keep going?}
+\item \textbf{Q1} (Keyword trap / distractor) --- \textit{still missed.} Retrieved at \#6, re-ranked to \#7, still outside the top 3. Query: \textit{Does wearing heavy plate make it harder to sneak past guards unnoticed?}
+\item \textbf{Q13} (Buried vital chunk) --- \textit{still missed.} Retrieved at \#5, re-ranked to \#8, still outside the top 3. Query: \textit{How much damage do you take from a long drop?}
+\end{itemize}
+\subsection{Answer 1 vs.\ Answer 2}
+\subsubsection*{Q14 --- Can I attack with a weapon in each hand on the same turn?}
+\textbf{Answer 1 (baseline)} --- context pages [27, 77, 27], chunks [193, 550, 197]:
+\begin{quote}\itshape Based on the provided context, you can engage in two-weapon fighting. When doing so, you can add your ability modifier to the damage of the second attack, unless that modifier is negative (p. 27, 77). If either weapon has the thrown property, you may throw it instead of making a melee attack (p. 77). Additionally, if you are at least 2nd level, you can use Action Surge to take one additional action on your turn, which increases to two uses at 17th level (p. 27). You must finish a short or long rest before using Action Surge again (p. 27).\end{quote}
+\textbf{Answer 2 (re-ranked)} --- context pages [77, 27, 73], chunks [549, 193, 516]:
+\begin{quote}\itshape Yes, when you take the Attack action with a light melee weapon in one hand, you can use a bonus action to attack with a different light melee weapon in the other hand (p. 77). If either weapon has the thrown property, you may throw it instead of making a melee attack (p. 77). Restrictions and penalties include: * Both weapons must be light melee weapons (p. 77). * You do not add your ability modifier to the damage of the bonus attack unless the modifier is negative (p. 77). However, certain class features allow you to add the modifier to the second attack's damage (p. 27).\end{quote}
+
+\subsubsection*{Q9 --- When am I prohibited from acting at all at the start of a battle?}
+\textbf{Answer 1 (baseline)} --- context pages [72, 72, 162], chunks [509, 508, 1031]:
+\begin{quote}\itshape NOT IN CONTEXT.\end{quote}
+\textbf{Answer 2 (re-ranked)} --- context pages [72, 162, 73], chunks [511, 1031, 517]:
+\begin{quote}\itshape You are prohibited from moving or taking an action on your first turn of combat if you are surprised (p. 72). Additionally, you are restricted from taking any reactions until that first turn ends (p. 72). While a reaction is an instant response to a trigger that can occur on your turn or someone else's, once you use a reaction, you are prohibited from taking another one until the start of your next turn (p. 73).\end{quote}
+
+\subsubsection*{Q11 --- Does scrambling up a wall or wading through a swamp slow me down?}
+\textbf{Answer 1 (baseline)} --- context pages [66, 73, 73], chunks [459, 520, 522]:
+\begin{quote}\itshape Yes. According to the rules for difficult terrain, every foot of movement costs 1 extra foot (p. 73). The context identifies boulder-strewn caverns, briar-choked forests, and treacherous staircases as examples of settings containing difficult terrain (p. 73). Additionally, scaling a treacherous mountain slope or swimming across a rushing river are noted as key types of movement in adventures (p. 66). While the DM may summarize movement between encounters without calculating exact distances, it is sometimes important to determine how long it takes to travel between spots in days, hours, or minutes (p. 66).\end{quote}
+\textbf{Answer 2 (re-ranked)} --- context pages [67, 66, 73], chunks [468, 459, 521]:
+\begin{quote}\itshape Yes. Climbing and swimming (such as wading through a swamp) are special types of movement where each foot costs 1 extra foot of speed (p. 67). If the terrain is considered difficult terrain---such as deep swamps, steep mountains, or rubble---you move at half speed, meaning 1 foot of movement costs 2 feet of speed (p. 67). When climbing or swimming in difficult terrain, each foot costs 2 extra feet (p. 67). Additionally, the travel speeds for simple terrain assume you can cover only half the normal distance in a minute, hour, or day when in difficult terrain (p. 67). This rule applies even if multiple factors in a space count as difficult terrain (p. 73).\end{quote}
+
+\begin{analysisgap}
+% TO WRITE: Per rescued query: which rank moved, and did the baseline hallucinate, omit a clause, or misstate a rule? Note that Q9/Q11 refused outright while Q14 answered confidently and wrongly -- those are different failure shapes. Then address the cases re-ranking did not fix.
+\textit{[Your analysis here.]}
+\end{analysisgap}
+
+\section{Latency Profiling}
+
+15 queries $\times$ 5 repeats $=$ 75 measurements per pipeline, after one
+untimed warm-up pass. The LLM call is excluded from the pipeline comparison:
+it is identical work in both pipelines and its variance is far larger than
+the retrieval times under test. It is reported separately below.
+
+\begin{center}\begin{tabular}{lrrrrr}\toprule
+\textbf{Stage} & \textbf{mean} & \textbf{median} & \textbf{p95} & \textbf{min} & \textbf{max} \\
+ & (ms) & (ms) & (ms) & (ms) & (ms) \\ \midrule
+Query embedding (1 pass) & 11.01 & 11.18 & 12.21 & 6.84 & 13.71 \\
+Vector search (whole corpus) & 0.07 & 0.06 & 0.07 & 0.05 & 0.37 \\
+Cross-encoder (10 pairs) & 57.3 & 48.34 & 110.96 & 37.45 & 114.11 \\
+\midrule
+\textbf{Pipeline 1 retrieval} & \textbf{11.08} & 11.24 & 12.32 & 6.9 & 13.77 \\
+\textbf{Pipeline 2 retrieval} & \textbf{68.38} & 59.99 & 121.62 & 44.87 & 125.68 \\
+\bottomrule\end{tabular}\end{center}
+
+Pipeline 2 retrieval costs $\mathbf{6.2\times}$ Pipeline 1
+($\mathbf{+57}$ ms absolute). Measured separately, the LLM call averages
+$\mathbf{34674}$ ms over 6 calls, so against generation the re-ranker adds
+$\mathbf{0.2\%}$ to end-to-end latency --- the generator dominates by
+roughly $605\times$.
+
+
+\begin{figure}[h]\centering
+\includegraphics[width=\textwidth]{../figures/latency.png}
+\caption{Per-stage cost (left) and end-to-end retrieval latency (right).}
+\end{figure}
+
+\begin{analysisgap}
+% TO WRITE: Where the cost actually sits, and whether 6x matters once the LLM is in the loop. The two framings disagree -- say which one is the right one to design against, and why.
+\textit{[Your analysis here.]}
+\end{analysisgap}
+
+\section{Scaling: Why Not Cross-Encode Everything?}
+
+The cross-encoder costs 5.7~ms per (query, chunk) pair and is linear in the
+number of pairs, because a score exists only for a specific pair and nothing
+can be precomputed between queries.
+
+\begin{center}\begin{tabular}{lrrrr}\toprule
+\textbf{Corpus} & \textbf{Chunks} & \textbf{Cross-encode all} & \textbf{Two-stage} & \textbf{Ratio} \\
+ & & (s/query) & (s/query) & \\ \midrule
+This rulebook & 1,119 & 6.4 & 0.068 & 94$\times$ \\
+10k chunks & 10,000 & 57.3 & 0.068 & 838$\times$ \\
+1M chunks & 1,000,000 & 5,730.0 & 0.068 & 83,796$\times$ \\
+\bottomrule\end{tabular}\end{center}
+\begin{analysisgap}
+% TO WRITE: The arithmetic above is the cost argument. Add the structural one: bi-encoder chunk vectors are query-independent and precomputable, cross-encoder scores are not, so no index can prune the candidate set. Then close the loop -- the beyond-recall rows in Section 2 are the price this design charges.
+\textit{[Your analysis here.]}
+\end{analysisgap}
+
+\end{document}
